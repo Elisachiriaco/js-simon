@@ -9,7 +9,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
   }
 
-// creo variabili
+// Creo variabili
 let generateNum = [];
 let numeri = document.getElementById('numeri');
  
@@ -21,6 +21,25 @@ while(generateNum.length < 5){
         let mioDiv =`<div>${numRandom}</div>`;
         numeri.innerHTML = generateNum;
     } 
- }
+}
+
+// Creo una funzione che rimuove i numeri dopo 30 secondi
+setTimeout(removeNum,9000);
+
+function removeNum() {
+    numeri.style.display = 'none';
+};
+
+//  L'utente inserisce uno alla volta i numeri visti dopo 30 secondi tramite il prompt quindi creo una funzione con un ciclo all'interno per chiedere all'utente 5 volte di inserire i numeri
+
+setTimeout(numVisti, 10000);
+
+function numVisti() {
+        for(i = 0; i < 5; i++){
+        let userNum = [];
+        let numeriVisti = prompt('Inserisci i numeri che hai appena visto');
+        userNum.push(numeriVisti);
+    }
+};
 
  
