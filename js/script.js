@@ -42,4 +42,5 @@ function numVisti() {
     }
 };
 
- 
+// Dire quanti numeri e quali sono stati indovinati
+
