@@ -15,13 +15,12 @@ let numeri = document.getElementById('numeri');
  
 // Ciclo per numeri casuali
 while(generateNum.length < 5){
-    let numRandom = Math.floor(Math.random() * 100) + 1;
+    let numRandom = getRandomInt(1,100);
     if(!generateNum.includes(numRandom)){
         generateNum.push(numRandom);  
-        let mioDiv =`<div>${numRandom}</div>`;
-        numeri.innerHTML = generateNum;
     } 
 }
+numeri.innerHTML = generateNum.join(' - ');
 
 // Creo una funzione che rimuove i numeri dopo 30 secondi
 setTimeout(removeNum,9000);
@@ -31,16 +30,37 @@ function removeNum() {
 };
 
 //  L'utente inserisce uno alla volta i numeri visti dopo 30 secondi tramite il prompt quindi creo una funzione con un ciclo all'interno per chiedere all'utente 5 volte di inserire i numeri
+// Dire quanti numeri e quali sono stati indovinati
 
-setTimeout(numVisti, 10000);
-
-function numVisti() {
-        for(i = 0; i < 5; i++){
-        let userNum = [];
-        let numeriVisti = prompt('Inserisci i numeri che hai appena visto');
-        userNum.push(numeriVisti);
+function confrontaNumeri(numeriUtente){
+    const numeriAzzeccati = [];
+    for(let i = 0; i < numeriUtente.length; i++){
+        let num = numeriUtente[i];
+        if(generateNum.includes(num)){
+            numeriAzzeccati.push(num);
+        }
+        if(generateNum.length === numeriAzzeccati.length){
+            alert('Hai indovinato tutti i numeri!');
+        }
+        else{
+            numeri.innerHTML = generateNum.join(' - ');
+            const numeriUtenteElm = document.getElementById('numeri-utente');
+            const numeriIndovinatiElm = document.getElementById('numeri-corrispondenti');
+            const numeriIniziali = document.getElementById('numeri-iniziali');
+            numeriIniziali.innerHTML = `Numeri iniziali ${generateNum.join('- ')}`;
+            numeriUtenteElm.innerHTML = `Numeri inseriti da te: ${numeriUtente.join(' - ')}`
+            numeriIndovinatiElm.innerHTML = `Hai indovinato solo questi numeri:${numeriAzzeccati.join(' - ')}`;
+        }
     }
 };
 
-// Dire quanti numeri e quali sono stati indovinati
-
+const timer = setTimeout(() =>{
+    const numeriUtente = [];
+    while(numeriUtente.length < 5){
+        const num = parseInt(prompt('Inserisci i numeri uno alla volta'));
+        if(!numeriUtente.includes(num)){
+            numeriUtente.push(num);
+        }
+    }
+    confrontaNumeri(numeriUtente);
+},3000);
